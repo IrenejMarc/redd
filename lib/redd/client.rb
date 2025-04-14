@@ -83,11 +83,11 @@ module Redd
     # @return [HTTP::Connection] the base connection object
     def connection
       timeout = ENV.fetch("REDD_REQUEST_TIMEOUT", "15").to_i
-      
+
       # TODO: Make timeouts configurable
       @connection ||= HTTP.persistent(@endpoint)
                           .headers('User-Agent' => @user_agent)
-                          .timeout(:per_operation, write: timeout, connect: timeout, read: timeout)
+                          .timeout({write: timeout, connect: timeout, read: timeout})
     end
   end
 end
